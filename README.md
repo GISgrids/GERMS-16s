@@ -16,9 +16,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-
-**nf-core/ampliconrrnaseq** is a bioinformatics best-practice analysis pipeline for This is a remake of the original 16S pipeline in Nextflow DSL2 language developed with in the Genome Institute of Singapore (http://www.a-star.edu.sg/gis), designed for Illumina shotgun sequencing of 16S rRNA amplicon sequences ([Ong et al., 2013, PMID 23579286](http://www.ncbi.nlm.nih.gov/pubmed/23579286))..
+**nf-core/ampliconrrnaseq** is a bioinformatics pipeline developed in the Genome Institute of Singapore (http://www.a-star.edu.sg/gis), designed for Illumina shotgun sequencing of 16S rRNA amplicon sequences ([Ong et al., 2013, PMID 23579286](http://www.ncbi.nlm.nih.gov/pubmed/23579286)). This is a remake of the 16S pipeline, originally in Snakemake, in Nextflow DSL2 language.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -28,10 +26,9 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+2. Trim fastq data ([`Famas`](https://github.com/andreas-wilm/famas/))
+3. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
 
@@ -54,10 +51,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 4. Start running your own analysis!
 
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
    ```console
-   nextflow run nf-core/ampliconrrnaseq --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/ampliconrrnaseq --input samplesheet.csv --outdir <OUTDIR> -profile docker
    ```
 
 ## Documentation

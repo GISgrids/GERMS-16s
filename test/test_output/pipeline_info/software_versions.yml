@@ -1,0 +1,12 @@
+CUSTOM_DUMPSOFTWAREVERSIONS:
+  python: 3.9.5
+  yaml: 5.4.1
+FAMAS:
+  famas: 0.0.7
+FASTQC:
+  fastqc: 0.11.9
+SAMPLESHEET_CHECK:
+  python: 3.8.3
+Workflow:
+  Nextflow: 22.04.0
+  nf-core/ampliconrrnaseq: 1.0dev

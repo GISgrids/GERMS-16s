@@ -4,7 +4,7 @@ process FAMAS {
     tag "$meta.id"
     label 'process_low'
 
-	// Nope...Docker only
+    // Nope...Docker only
     container 'solyris/famas:0.0.7'
 
     input:
@@ -28,6 +28,7 @@ process FAMAS {
         -o R1.trimmed.fastq.gz \\
         -p R2.trimmed.fastq.gz \\
         $args \\
+    
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         famas: $VERSION

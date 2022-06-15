@@ -35,8 +35,9 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check
+include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { FAMAS } from '../modules/local/famas'
+include { BWA_INDEX_FASTA } from '../subworkflows/local/bwa_index.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,14 +95,22 @@ workflow AMPLICONRRNASEQ {
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
-	//
+    //
     // Step 1 : Run Famas trimming
     //
     FAMAS {
         INPUT_CHECK.out.reads
     }
-    ch_versions = ch_versions.mix(FAMAS.out.versions.first())
+    ch_versions = ch_versions.mix(FAMAS.out.versions.first())    
 
+    //
+    // Step 3 : pre-filter
+    //
+    ch_fasta = file(params.fasta)
+    ch_bwa_index = Channel.empty()
+    
+    ch_bwa_index = BWA_INDEX_FASTA ( ch_fasta ).index
+   
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )

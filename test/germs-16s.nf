@@ -1,0 +1,1 @@
+/home/ubuntu/project/GERMS-16s/main.nf

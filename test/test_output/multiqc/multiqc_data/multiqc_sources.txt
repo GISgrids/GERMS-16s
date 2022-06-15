@@ -1,0 +1,5 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	ERR1712461_2	/home/ubuntu/project/GERMS-16s/work/86/6966a0f1d0d0e7d0c83d8d3dd0a26d/ERR1712461_2_fastqc.zip
+FastQC	all_sections	ERR1712460_2	/home/ubuntu/project/GERMS-16s/work/86/6966a0f1d0d0e7d0c83d8d3dd0a26d/ERR1712460_2_fastqc.zip
+FastQC	all_sections	ERR1712460_1	/home/ubuntu/project/GERMS-16s/work/86/6966a0f1d0d0e7d0c83d8d3dd0a26d/ERR1712460_1_fastqc.zip
+FastQC	all_sections	ERR1712461_1	/home/ubuntu/project/GERMS-16s/work/86/6966a0f1d0d0e7d0c83d8d3dd0a26d/ERR1712461_1_fastqc.zip
