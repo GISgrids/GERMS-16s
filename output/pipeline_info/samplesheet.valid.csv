@@ -1,0 +1,3 @@
+sample,single_end,fastq_1,fastq_2
+ERR1712460_1,False,test/ERR1712460_1.subsampled.fastq.gz,test/ERR1712460_2.subsampled.fastq.gz
+ERR1712461_1,False,test/ERR1712461_1.subsampled.fastq.gz,test/ERR1712461_2.subsampled.fastq.gz

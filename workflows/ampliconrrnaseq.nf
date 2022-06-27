@@ -36,6 +36,8 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { BuildBWAindexes } from '../modules/local/BuildBWAindexes'
+include { prefilter } from '../modules/local/pre_filter'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +80,33 @@ workflow AMPLICONRRNASEQ {
         INPUT_CHECK.out.reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    
+    // Step 2: prefilter (needs revision)
+
+    fasta_ch=Channel.from(params.fasta)
+    spikein_ch=Channel.from(params.spike_in_name)
+    inputcheck_ch=Channel.from(params.samplesheet) 
+    //BuildBWAindexes( fasta_ch )
+    INPUT_CHECK (
+	        inputcheck_ch
+	    )
+	    .reads
+	    .map {
+	        meta, fastq ->
+	            meta.id = meta.id.split('_')[0..-2].join('_')
+	            [ meta, fastq ] }
+	    .groupTuple(by: [0])
+	    .branch {
+	        meta, fastq ->
+	            single  : fastq.size() == 1
+	                return [ meta, fastq.flatten() ]
+	            multiple: fastq.size() > 1
+	                return [ meta, fastq.flatten() ]
+	    }
+    ch_buildbwa=BuildBWAindexes.out.bwa_index
+    prefilter (INPUT_CHECK.out.reads, ch_buildbwa, spikein_ch)
+
+
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
