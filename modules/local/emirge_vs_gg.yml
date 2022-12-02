@@ -1,0 +1,9 @@
+//module/local
+
+name: emirge_vs_gg
+channels:
+        - conda-forge
+        - bioconda
+        - defaults
+dependencies:
+        - graphmap=0.5.2
